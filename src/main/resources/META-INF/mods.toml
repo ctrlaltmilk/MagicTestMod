@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[47.2,)"
+
+license = "MPL-2.0"
+
+[[mods]]
+modId = "mtm"
+version = "${version}"
+displayName = "Magic Test Mod"
+authors = "ctrlaltmilk"
+description = """
+A prototyping ground for a magic system.
+"""
+
+[[dependencies.mtm]]
+modId = "forge"
+mandatory = true
+versionRange = "[47.1,)"
+
+[[dependencies.mtm]]
+modId = "tfc"
+mandatory = true
+versionRange = "[3.1,)"
+ordering = "AFTER"
