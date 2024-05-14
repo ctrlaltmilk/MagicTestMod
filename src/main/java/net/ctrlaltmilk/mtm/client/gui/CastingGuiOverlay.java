@@ -42,7 +42,7 @@ public class CastingGuiOverlay implements IGuiOverlay {
             pose.scale(4.0F, 4.0F, 4.0F);
 
             var width = font.width(glyphComponent);
-            guiGraphics.drawString(font, glyphComponent, width / 2, -10, 0xFFFFFF);
+            guiGraphics.drawString(font, glyphComponent, -width / 2, 5, 0xFFFFFF);
 
             pose.popPose();
         }
