@@ -6,7 +6,6 @@
 
 package net.ctrlaltmilk.mtm.mixin.client;
 
-import net.ctrlaltmilk.mtm.capability.CasterCapability;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
@@ -17,6 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.ctrlaltmilk.mtm.attachment.MTMAttachments.SPELL_PROGRESS;
+
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin {
     @Shadow @Final private Minecraft minecraft;
@@ -25,13 +26,12 @@ public abstract class KeyboardHandlerMixin {
     private void onKeyPress(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
         if (minecraft.player == null) return;
 
-        var optionalCap = minecraft.player.getCapability(CasterCapability.CAPABILITY);
+        var spell = minecraft.player.getData(SPELL_PROGRESS);
 
-        var cap = optionalCap.orElseThrow(RuntimeException::new);
-
-        if (cap.currentlyCasting() && action == GLFW.GLFW_PRESS
-                && key > 64 && key <= 90) {
-            cap.pushGlyph((char) key);
+        if (spell.isCasting()
+                && action == GLFW.GLFW_PRESS
+                && key >= 'A' && key <= 'Z') {
+            spell.addGlyph((char) key);
             ci.cancel();
         }
     }

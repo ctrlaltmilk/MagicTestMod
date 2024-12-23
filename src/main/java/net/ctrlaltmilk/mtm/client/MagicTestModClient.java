@@ -6,22 +6,21 @@
 
 package net.ctrlaltmilk.mtm.client;
 
-import net.ctrlaltmilk.mtm.client.gui.CastingGuiOverlay;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.ctrlaltmilk.mtm.client.gui.SpellGuiLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 
 import static net.ctrlaltmilk.mtm.MagicTestMod.MOD_ID;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MOD_ID)
+@EventBusSubscriber(value = Dist.CLIENT, modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class MagicTestModClient {
-
-    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ModEvents {
-        @SubscribeEvent
-        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAboveAll("casting", new CastingGuiOverlay());
-        }
+    @SubscribeEvent
+    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, "spell"),
+                new SpellGuiLayer());
     }
 }

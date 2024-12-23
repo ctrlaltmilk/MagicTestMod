@@ -1,0 +1,16 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+
+license = "MPL-2.0"
+
+[[mods]]
+modId = "mtm"
+version = "${file.jarVersion}"
+displayName = "Magic Test Mod"
+authors = "ctrlaltmilk"
+description = """
+A prototyping ground for a magic system.
+"""
+
+[[mixins]]
+config = "mtm.mixins.json"
